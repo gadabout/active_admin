@@ -1,4 +1,6 @@
-// ----------------------------------- Header 
+@import "active_admin/mixins";
+
+// ----------------------------------- Header
 #header { 
   @include primary-gradient;
   @include shadow;
