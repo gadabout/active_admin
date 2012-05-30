@@ -2,14 +2,6 @@ module ActiveAdmin
   module Callbacks
     extend ActiveSupport::Concern
 
-<<<<<<< HEAD
-
-    protected
-
-=======
-    protected
-
->>>>>>> upstream/0.4.x-stable
     # Simple callback system. Implements before and after callbacks for
     # use within the controllers.
     #
@@ -19,21 +11,12 @@ module ActiveAdmin
 
     def call_callback_with(method, *args)
       case method
-<<<<<<< HEAD
-        when Symbol
-          send(method, *args)
-        when Proc
-          instance_exec(*args, &method)
-        else
-          raise "Please register with callbacks using a symbol or a block/proc."
-=======
       when Symbol
         send(method, *args)
       when Proc
         instance_exec(*args, &method)
       else
         raise "Please register with callbacks using a symbol or a block/proc."
->>>>>>> upstream/0.4.x-stable
       end
     end
 
