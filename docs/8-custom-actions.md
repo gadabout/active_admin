@@ -89,7 +89,13 @@ To include your own action items (like the New, Edit and Delete buttons), add an
 post:
 
     action_item :only => :show do
-      link_to 'View on site', post_path(params[:id])
+      link_to('View on site', post_path(post)) if post.published?
+    end
+
+Actions items also accept the :if option to conditionally display them:
+
+    action_item :only => :show, :if => proc{ current_admin_user.super_admin? } do
+      "Only display this to super admins on the show screen"
     end
 
 ### Page Titles

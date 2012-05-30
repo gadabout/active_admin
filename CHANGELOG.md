@@ -1,10 +1,231 @@
-## Master
+## Master (unreleased)
+
+## 0.4.4
+
+### Dependencies
+
+* Use `formtastic` ~> 2.1.1 until AA 0.5.0 is released
+* Use `inherited_resources` >= 1.3.1 (ensure flash messages work)
+
+## 0.4.3
+
+### Bug Fixes
+
+* [#1063][]: Fix comment issues when using postgres ([@jancel][])
+
+## 0.4.2
 
 ### Enhancements
 
-* [#428][]: Paginated Collection now supports :param_name and :download_links.
-            These two additions allow you to use the paginated_collection
-            component multiple times on show screens. ([@samvincent][])
+* [#822][]: Automatically include js and css to precompile list ([@jschwindt][])
+* [#1033][]: Site title accepts a proc that is rendered in the context
+         of the view ([@pcreux][])
+* [#70][]: Form blocks are now rendered within the context of the view ([@gregbell][])
+* [#70][]: Filter's collections are now eval'd in the context of the view ([@gregbell][])
+* [#1032][]: The html body now includes a class for the namespace name ([@mattvague][])
+* [#1013][]: Hide the count from one specific scope using `:show_count => false`
+         ([@latortuga][])
+
+### Bug Fixes
+
+* [#34][]: Comments now work with models using string ids ([@jancel][])
+* [#1041][]: When `table_for` collection is empty it no longer outputs
+         a blank array in Ruby 1.9 ([@jancel][], [#1016][])
+* [#983][]: Fixed compatibility with pry-rails ([@pcreux][])
+* [#409][]: Install generator handles custom class names for user ([@gregbell][])
+
+
+## 0.4.1
+
+### Enhancements
+
+* [#865][]: Pages support the `#page_action` to add custom controller actions
+        to a page ([@BoboFraggins][])
+* Columns component now supports column spans, max and min widths ([@gregbell][])
+* [#497][]: Custom pagination settings per resource ([@pcreux][])
+* [#993][]: Login form now focuses on email ([@mattvague][])
+* [#865][]: Add `:if` support to sidebar sections ([@BoboFraggins][])
+* [#865][]: Added `:scope_count => false` to the index to hide scope counts
+        in generated scopes ([@BoboFraggins][])
+
+### Bug Fixes
+
+* [#101][]: Global nav now works with RackBaseURI ([@gregbell][])
+* [#960][]: Global nav works when scoped in rails routes ([@gregbell][])
+* [#994][]: Fix index page check collection.limit(1).exists? causes exception when
+        ordering by virtual colum ([@latortuga][], [@gregbell][])
+* [#971][]: Fix SQL when sorting tables with a column named "group" ([@ggilder][])
+
+### Dependencies
+
+* [#978][]: Support for Inherited Resources 1.3.0 ([@fabiormoura][])
+
+### Contributors
+
+75 Commits by 12 authors
+
+* Bruno Bonamin
+* David Radcliffe
+* Dinesh Majrekar
+* Erik Michaels-Ober
+* Fábio Maia
+* Gabriel Gilder
+* Greg Bell
+* Kyle Macey
+* Matt Vague
+* Oldani Pablo
+* Peter Fry
+* Philippe Creux
+* Søren Houen
+
+
+## 0.4.0
+
+### Upgrade Notes
+
+If you're running on Rails 3.0.x, make sure to run `rails generate active_admin:assets` 
+since we've changed both the CSS and JS files.
+
+### Deprecations
+
+* In the initializer `config.allow_comments_in = []` is now
+  `config.allow_comments = true`. Use the new namespace specific configurations
+  to allow or disallow configuration within a specific namespace.
+* Removed `Object#to_html` in favour of `to_s`. Any Arbre components
+  implementing a `to_html` method need to be updated to use `to_s` instead.
+
+### New Features
+
+* Namespace specific configurations in the initializer ([@gregbell][])
+* [#624][]: Set an image as the site title using `config.site_title_image` in the
+  Active Admin initializer. ([@mattvague][])
+* [#758][]: Create a standalone page in Active Admin using
+  `ActiveAdmin.register_page` ([@pcreux][])
+* [#723][]: Register stylesheets with a media type ([@macfanatic][])
+
+### Enhancements
+
+* [#428][]: Paginated Collection now supports `:param_name` and `:download_links`.
+  These two additions allow you to use the `paginated_collection` component multiple 
+  times on show screens. ([@samvincent][])
+* [#527][]: Refactored all form helpers to use Formtastic 2([@ebeigarts][])
+* [#551][]: Dashboards can now be conditionally displayed using `:if` ([@samvincent][])
+* [#555][]: scopes now accept `:if`. They only get displayed if the proc returns true ([@macfanatic][])
+* [#601][]: Breadcrumbs are internationalized ([@vairix-ssierra][])
+* [#605][]: Validations on ActiveAdmin::Comment should work with
+  `accepts_nested_attributes_for` ([@DMajrekar ][])
+* [#623][]: Index table can sort on any table using `:sort => 'table.column'` ([@ZequeZ][])
+* [#638][]: Add `:label` option to `status_tag` component ([@fbuenemann][])
+* [#644][]: Added proper I18n support to pagination ([@fbuenemann][])
+* [#689][]: Scopes preserve title when provided as a string ([@macfanatic][])
+* [#711][]: Styles update. Now sexier and more refined design. Redesigned Scopes. Split 
+  css into smaller files. ([@mattvague][])
+* [#741][]: Default media type of css is now "all" instead of "screen" ([@sftsang][])
+* [#751][]: Pagination numbers work with a custom `[@per_page][]` ([@DMajrekar][])
+* `default_actions` in an index table only display implemented actions ([@watson][])
+
+### Bug Fixes
+
+* [#590][]: Comments now work in the default namespace ([@jbarket][])
+* [#780][]: Fix stack level too deep exception when logout path is setup to use
+  `:logout_path` named route. ([@george][])
+* [#637][]: Fix scope all I18n ([@fbuenemann][])
+* [#496][]: Remove global `Object#to_html` [@ebeigarts][]
+* [#470][], [#154][]: Arbre properly supports blocks that return Numeric values
+  ([@bobbytables][], [@utkarshkukreti][], [@gregbell][])
+* [#897][]: Fix count display for collections with GROUP BY [@comboy][]
+
+### Dependencies
+
+* [#468][]: Removed vendored jQuery. Now depends on the jquery-rails gem. If you're 
+  running Rails 3.0.x (no asset pipeline), make sure to run 
+  `rails generate active_admin:assets` to generate the correct files. ([@gregbell][])
+* [#527][]: Active Admin now requires Formtastic 2.0 or greater ([@ebeigarts][])
+* [#711][]: Active admin now depends on Bourbon > 1.0.0. If you're using Rails
+  3.0.x, make sure to run `rails generate active_admin:assets` to ensure you
+  have the correct css files ([@mattvague][])
+* [#869][]: Upgraded Kaminari to >= 0.13.0 and added support for
+  `Kaminari.config.page_method_name`. Active Admin should now be happy if
+  `will_paginate` is installed with it. ([@j][]-manu)
+* [#931][]: Support for Rails 3.2 added ([@mperham][])
+
+### Contributors
+
+274 commits by 42 authors
+
+ * Greg Bell
+ * Philippe Creux
+ * Matt Vague
+ * Felix Bünemann
+ * Matthew Brewer
+ * Edgars Beigarts
+ * Mike Perham
+ * Sam Vincent
+ * Kieran Klaassen
+ * Jonathan Barket
+ * Ankur Sethi
+ * Dinesh Majrekar
+ * comboy
+ * Juan E. Pemberthy
+ * Leandro Moreira
+ * Manu
+ * Marc Riera
+ * Radan Skorić
+ * Rhys Powell
+ * Sebastian Sierra
+ * Sherman Tsang
+ * Szymon Przybył
+ * Thomas Watson Steen
+ * Tim Habermaas
+ * Yara Mayer
+ * Zequez
+ * asancio
+ * emmek
+ * Alexey Noskov
+ * igmizo
+ * Alli
+ * Bendik Lynghaug
+ * Douwe Homans
+ * Eric Koslow
+ * Eunsub Kim
+ * Garami Gábor
+ * George Anderson
+ * Henrik Hodne
+ * Ivan Storck
+ * Jeff Dickey
+ * John Ferlito
+ * Josef Šimánek
+
+
+## 0.3.4
+
+2 commits by 2 authors
+
+### Bug Fixes
+
+* Fix reloading issues across operating systems.
+* Fix issue where SASS was recompiling on every request. This can seriously
+  decrease the load time of applications when running in development mode.
+  Thanks [@dhiemstra][] for tracking this one down!
+
+### Contributors
+
+* Danny Hiemstra
+* Greg Bell
+
+## 0.3.3
+
+1 commit by 1 author
+
+### Enhancements
+
+* Only reload Active Admin when files in the load paths have changed. This is a
+  major speed increase in development mode. Also helps with memory consumption
+  because we aren't reloading Active admin all the time.
+
+### Contributors
+
+* Greg Bell
 
 ## 0.3.2
 
@@ -229,12 +450,13 @@ of the highlights. 250 commits. Enough said.
 
 * Initial release
 
-<!--- The following link definitions are generated by PimpMyChangelog --->
+<!--- The following link definition list is generated by PimpMyChangelog --->
 [#21]: https://github.com/gregbell/active_admin/issues/21
 [#22]: https://github.com/gregbell/active_admin/issues/22
 [#28]: https://github.com/gregbell/active_admin/issues/28
 [#31]: https://github.com/gregbell/active_admin/issues/31
 [#32]: https://github.com/gregbell/active_admin/issues/32
+[#34]: https://github.com/gregbell/active_admin/issues/34
 [#38]: https://github.com/gregbell/active_admin/issues/38
 [#42]: https://github.com/gregbell/active_admin/issues/42
 [#45]: https://github.com/gregbell/active_admin/issues/45
@@ -242,16 +464,19 @@ of the highlights. 250 commits. Enough said.
 [#52]: https://github.com/gregbell/active_admin/issues/52
 [#55]: https://github.com/gregbell/active_admin/issues/55
 [#69]: https://github.com/gregbell/active_admin/issues/69
+[#70]: https://github.com/gregbell/active_admin/issues/70
 [#77]: https://github.com/gregbell/active_admin/issues/77
 [#92]: https://github.com/gregbell/active_admin/issues/92
 [#95]: https://github.com/gregbell/active_admin/issues/95
 [#96]: https://github.com/gregbell/active_admin/issues/96
 [#99]: https://github.com/gregbell/active_admin/issues/99
 [#100]: https://github.com/gregbell/active_admin/issues/100
+[#101]: https://github.com/gregbell/active_admin/issues/101
 [#110]: https://github.com/gregbell/active_admin/issues/110
 [#122]: https://github.com/gregbell/active_admin/issues/122
 [#131]: https://github.com/gregbell/active_admin/issues/131
 [#135]: https://github.com/gregbell/active_admin/issues/135
+[#154]: https://github.com/gregbell/active_admin/issues/154
 [#171]: https://github.com/gregbell/active_admin/issues/171
 [#186]: https://github.com/gregbell/active_admin/issues/186
 [#197]: https://github.com/gregbell/active_admin/issues/197
@@ -262,19 +487,82 @@ of the highlights. 250 commits. Enough said.
 [#332]: https://github.com/gregbell/active_admin/issues/332
 [#369]: https://github.com/gregbell/active_admin/issues/369
 [#381]: https://github.com/gregbell/active_admin/issues/381
+[#409]: https://github.com/gregbell/active_admin/issues/409
 [#428]: https://github.com/gregbell/active_admin/issues/428
+[#468]: https://github.com/gregbell/active_admin/issues/468
+[#470]: https://github.com/gregbell/active_admin/issues/470
+[#496]: https://github.com/gregbell/active_admin/issues/496
+[#497]: https://github.com/gregbell/active_admin/issues/497
 [#505]: https://github.com/gregbell/active_admin/issues/505
+[#527]: https://github.com/gregbell/active_admin/issues/527
+[#551]: https://github.com/gregbell/active_admin/issues/551
+[#555]: https://github.com/gregbell/active_admin/issues/555
+[#590]: https://github.com/gregbell/active_admin/issues/590
+[#601]: https://github.com/gregbell/active_admin/issues/601
+[#605]: https://github.com/gregbell/active_admin/issues/605
+[#623]: https://github.com/gregbell/active_admin/issues/623
+[#624]: https://github.com/gregbell/active_admin/issues/624
+[#637]: https://github.com/gregbell/active_admin/issues/637
+[#638]: https://github.com/gregbell/active_admin/issues/638
+[#644]: https://github.com/gregbell/active_admin/issues/644
+[#689]: https://github.com/gregbell/active_admin/issues/689
+[#711]: https://github.com/gregbell/active_admin/issues/711
+[#723]: https://github.com/gregbell/active_admin/issues/723
+[#741]: https://github.com/gregbell/active_admin/issues/741
+[#751]: https://github.com/gregbell/active_admin/issues/751
+[#758]: https://github.com/gregbell/active_admin/issues/758
+[#780]: https://github.com/gregbell/active_admin/issues/780
+[#822]: https://github.com/gregbell/active_admin/issues/822
+[#865]: https://github.com/gregbell/active_admin/issues/865
+[#869]: https://github.com/gregbell/active_admin/issues/869
+[#897]: https://github.com/gregbell/active_admin/issues/897
+[#931]: https://github.com/gregbell/active_admin/issues/931
+[#960]: https://github.com/gregbell/active_admin/issues/960
+[#971]: https://github.com/gregbell/active_admin/issues/971
+[#978]: https://github.com/gregbell/active_admin/issues/978
+[#983]: https://github.com/gregbell/active_admin/issues/983
+[#993]: https://github.com/gregbell/active_admin/issues/993
+[#994]: https://github.com/gregbell/active_admin/issues/994
+[#1013]: https://github.com/gregbell/active_admin/issues/1013
+[#1016]: https://github.com/gregbell/active_admin/issues/1016
+[#1032]: https://github.com/gregbell/active_admin/issues/1032
+[#1033]: https://github.com/gregbell/active_admin/issues/1033
+[#1041]: https://github.com/gregbell/active_admin/issues/1041
+[#1063]: https://github.com/gregbell/active_admin/issues/1063
+[@BoboFraggins]: https://github.com/BoboFraggins
+[@DMajrekar]: https://github.com/DMajrekar
+[@ZequeZ]: https://github.com/ZequeZ
+[@bobbytables]: https://github.com/bobbytables
+[@comboy]: https://github.com/comboy
+[@dhiemstra]: https://github.com/dhiemstra
 [@doug316]: https://github.com/doug316
+[@ebeigarts]: https://github.com/ebeigarts
 [@emzeq]: https://github.com/emzeq
 [@fabiokr]: https://github.com/fabiokr
+[@fabiormoura]: https://github.com/fabiormoura
+[@fbuenemann]: https://github.com/fbuenemann
+[@george]: https://github.com/george
+[@ggilder]: https://github.com/ggilder
 [@gregbell]: https://github.com/gregbell
+[@j]: https://github.com/j
+[@jancel]: https://github.com/jancel
+[@jbarket]: https://github.com/jbarket
+[@jschwindt]: https://github.com/jschwindt
 [@knoopx]: https://github.com/knoopx
 [@krug]: https://github.com/krug
+[@latortuga]: https://github.com/latortuga
+[@macfanatic]: https://github.com/macfanatic
 [@mattvague]: https://github.com/mattvague
+[@mperham]: https://github.com/mperham
 [@mwindwer]: https://github.com/mwindwer
 [@page_title]: https://github.com/page_title
 [@pcreux]: https://github.com/pcreux
+[@per_page]: https://github.com/per_page
 [@rolfb]: https://github.com/rolfb
+[@samvincent]: https://github.com/samvincent
+[@sftsang]: https://github.com/sftsang
 [@shayfrendt]: https://github.com/shayfrendt
 [@tricknotes]: https://github.com/tricknotes
-[@samvincent]: https://github.com/samvincent
+[@utkarshkukreti]: https://github.com/utkarshkukreti
+[@vairix]: https://github.com/vairix
+[@watson]: https://github.com/watson

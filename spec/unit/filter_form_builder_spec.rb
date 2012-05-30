@@ -17,6 +17,10 @@ describe ActiveAdmin::ViewHelpers::FilterFormHelper do
       false
     end
 
+    def view.a_helper_method
+      "A Helper Method"
+    end
+
     view
   end
 
@@ -55,6 +59,15 @@ describe ActiveAdmin::ViewHelpers::FilterFormHelper do
 
     it "should label a text field with search" do
       body.should have_tag('label', 'Search Title')
+    end
+
+    it "should translate the label for text field" do
+      begin
+        I18n.backend.store_translations(:en, :activerecord => { :attributes => { :post => { :title => "Name" } } })
+        body.should have_tag('label', 'Search Name')
+      ensure
+        I18n.backend.reload!
+      end
     end
   end
 
@@ -150,6 +163,11 @@ describe ActiveAdmin::ViewHelpers::FilterFormHelper do
         it "should use call the proc as the collection" do
           body.should have_tag("option", "Title One")
           body.should have_tag("option", "Title Two")
+        end
+
+        it "should render the collection in the context of the view" do
+          body = filter(:title, :as => :select, :collection => proc{[a_helper_method]})
+          body.should have_tag("option", "A Helper Method")
         end
       end
     end

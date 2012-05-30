@@ -23,10 +23,10 @@ describe ActiveAdmin::Scope do
     end
 
     context "when a name and scope method" do
-      let(:scope)        { ActiveAdmin::Scope.new "My Scope", :scope_method }
-      its(:name)         { should == "My Scope"}
-      its(:id)           { should == "my_scope"}
-      its(:scope_method) { should == :scope_method }
+      let(:scope)        { ActiveAdmin::Scope.new "With API Access", :with_api_access }
+      its(:name)         { should == "With API Access"}
+      its(:id)           { should == "with_api_access"}
+      its(:scope_method) { should == :with_api_access }
     end
 
     context "when a name and scope block" do
@@ -51,4 +51,19 @@ describe ActiveAdmin::Scope do
     end
 
   end
+
+  describe "show_count" do
+
+    it "should allow setting of show_count to prevent showing counts" do
+      scope = ActiveAdmin::Scope.new(:default, nil, :show_count => false)
+      scope.show_count.should == false
+    end
+
+    it "should set show_count to true if not passed in" do
+      scope = ActiveAdmin::Scope.new(:default)
+      scope.show_count.should == true
+    end
+
+  end
+
 end

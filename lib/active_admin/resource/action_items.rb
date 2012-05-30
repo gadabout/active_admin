@@ -33,13 +33,18 @@ module ActiveAdmin
       # @param [String, Symbol] action the action to retrieve action items for
       #
       # @return [Array] Array of ActionItems for the controller actions
-      def action_items_for(action)
-        action_items.select{|item| item.display_on?(action) }
+      def action_items_for(action, render_context = nil)
+        action_items.select{|item| item.display_on?(action, render_context) }
       end
 
       # Clears all the existing action items for this resource
       def clear_action_items!
         @action_items = []
+      end
+
+      # Used by active_admin Base view
+      def action_items?
+        !!@action_items && @action_items.any?
       end
 
       private
